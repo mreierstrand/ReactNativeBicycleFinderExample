@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, } from 'react-native';
-import { Dimensions } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator, Dimensions, ScrollView} from 'react-native';
+
 
 var width = Dimensions.get('window').width;
 
-export default class App extends Component {
+class App extends Component {
 
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ export default class App extends Component {
 
   
   componentDidMount() {
-    return fetch('https://anbo-bicyclefinder.azurewebsites.net/api/bicycles')
+    return fetch('https://anbo-bicyclefinderdb.azurewebsites.net/api/bicycles')
       .then ((response) => response.json())
       .then ((responseJson) => {
 
@@ -45,7 +45,7 @@ export default class App extends Component {
 
        return (
          <View style={styles.container}>
-          <StatusBar style="dark" />
+          <StatusBar style='dark' />
           <ActivityIndicator />
          </View>
        )
@@ -59,12 +59,15 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
-        <StatusBar style="light" />
+        <StatusBar style='light' />
         <View style={styles.viewStyle}>
         <Text style={styles.textStyle}>Bicycle Finder</Text>
         </View>
-          {bicycles}
+        <ScrollView style={{padding: 10}}>
+         {bicycles}
+        </ScrollView>
         </View>
+        
       );
     }
   }
@@ -104,6 +107,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontStyle: 'italic',
     color: '#eee'
-    
-  }
+  },
 })
+
+export default App;
+
+
+
